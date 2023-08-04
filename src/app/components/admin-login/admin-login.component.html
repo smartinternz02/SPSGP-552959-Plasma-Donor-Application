@@ -1,0 +1,250 @@
+<style>
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .box {
+    margin-top: -70px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 60px 20px 30px 20px;
+    height: 500px;
+    width: 350px;
+    background-color:#FFBE7B;
+    border-radius: 30px;
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+  }
+
+
+
+  .box-login {
+    margin-top: -50px;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    transition: .5s ease-in-out;
+    transform: translateX(0);
+  }
+
+  .box-register{
+    margin-top: -50px;
+  }
+  .top-header {
+    text-align: center;
+    margin: 30px 0;
+  }
+
+  .top-header h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .input-group {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .input-box {
+    width: 100%;
+    height: 60px;
+    font-size: 15px;
+    color: black;
+    border: none;
+    border-radius: 10px;
+    padding: 7px 20px;
+    background: rgba(224, 223, 223, 0.6);
+    outline: none;
+  }
+
+  .input-field {
+    position: relative;
+    margin-bottom: 11px;
+    height: 60px;
+  }
+
+  .input-field label {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    font-size: 15px;
+    transition: .3s ease-in-out;
+    color: gray;
+    pointer-events: none;
+    transform: translateY(-50%);
+  }
+
+  .input-box:focus~label,
+  .input-box:valid~label {
+    top: 0;
+    font-size: 12px;
+    color: tomato;
+    font-weight: 500;
+  }
+
+  .input-submit {
+    width: 150px;
+    height: 40px;
+    font-size: 15px;
+    font-weight: 500;
+    border: none;
+    border-radius: 10px;
+    background: #bc6202;
+    color: white;
+    box-shadow: 0px 4px 20px rgba(62, 9, 9, 0.145);
+    transition: .4s;
+    margin: 10px auto 0;
+    display: block;
+  }
+
+  .input-submit:hover {
+    background: #db3e00;
+    box-shadow: 0px 4px 20px rgba(62, 9, 9, 0.32);
+  }
+
+  .switch {
+    display: flex;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.16);
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .switch a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+    border-radius: 10px;
+    z-index: 10;
+    flex: 1;
+    text-decoration: none;
+    transition: .5s;
+  }
+
+  .switch a.login {
+    margin-right: 5px;
+    background: none;
+  }
+
+  .switch a.register {
+    margin-left: 5px;
+    background: none;
+  }
+
+  .switch a.btn-active {
+    background: #bc6202;
+    color: white;
+  }
+
+  .switch-slider {
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    border-radius: 10px;
+    background: #bc6202;
+    transition: transform 0.5s ease-in-out;
+    z-index: 1;
+  }
+</style>
+
+
+<div class="container">
+  <div class="box">
+    
+    <div class="box-register" id="register" *ngIf="!showLoginForm">
+      <form>
+        <div class="top-header">
+          <h3>Sign up, Now</h3>
+          <small>We are happy to have you with us.</small>
+        </div>
+        <div class="input-group">
+          <div class="input-field">
+            <input type="text" class="input-box form-control" [(ngModel)]="name" [ngModelOptions]="{standalone:true}"
+              id="regUser" required>
+            <label for="regUser">User name</label>
+          </div>
+          <div class="input-field">
+            <input type="email" class="input-box form-control" [(ngModel)]="email" [ngModelOptions]="{standalone:true}"
+              id="regEmail" required>
+            <label for="regEmail">Email address</label>
+          </div>
+
+          <div class="input-field">
+            <input type="password" class="input-box form-control" [(ngModel)]="password"
+              [ngModelOptions]="{standalone:true}" id="regpass" required>
+            <label for="regpass">Password</label>
+          </div>
+          <div class="input-field">
+            <button type="submit" class="input-submit btn" (click)="register()">Sign Up</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="box-login" id="login" *ngIf="showLoginForm">
+      <form>
+        <div class="top-header">
+          <h3>Hello, Admin</h3>
+          <small>We are happy to have you back</small>
+        </div>
+        <div class="input-group">
+          <div class="input-field">
+            <input type="email" class="input-box form-control" [(ngModel)]="email" [ngModelOptions]="{standalone:true}"
+              id="logEmail" required>
+            <label for="logEmail">Email address</label>
+          </div>
+          <div class="input-field">
+            <input type="password" [(ngModel)]="password" [ngModelOptions]="{standalone:true}"
+              class="input-box form-control" id="logpass" required>
+            <label for="logpass">Password</label>
+          </div>
+          <div class="input-field">
+            <button type="submit" class="input-submit btn" (click)="login()">Sign In</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="switch">
+      <a class="login btn" [class.btn-active]="showLoginForm" (click)="toggleForm(true)">Login</a>
+      <a class="register btn" [class.btn-active]="!showLoginForm" (click)="toggleForm(false)">Register</a>
+      <div class="switch-slider" [style.transform]="showLoginForm ? 'translateX(0)' : 'translateX(100%)'"></div>
+    </div>
+
+  </div>
+</div>
+<script>
+  let showLoginForm = true;
+
+  function toggleForm(isLogin) {
+    showLoginForm = isLogin;
+    const loginBox = document.getElementById('login');
+    const registerBox = document.getElementById('register');
+    const switchSlider = document.querySelector('.switch-slider');
+
+    if (isLogin) {
+      loginBox.style.transform = 'translateX(0)';
+      registerBox.style.transform = 'translateX(100%)';
+      switchSlider.style.transform = 'translateX(0)';
+    } else {
+      loginBox.style.transform = 'translateX(-100%)';
+      registerBox.style.transform = 'translateX(0)';
+      switchSlider.style.transform = 'translateX(100%)';
+    }
+  }
+</script>
